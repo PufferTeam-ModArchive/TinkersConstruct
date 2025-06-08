@@ -152,18 +152,26 @@ public class HealthBarRenderer extends Gui {
         }
 
         if (health > 20) {
-            // Render tinkers' hearts
+            // Render tinkers' hearts with texture looping
             mc.getTextureManager().bindTexture(TINKER_HEARTS);
             for (int i = Math.max(0, health / 20 - 2); i < health / 20; i++) {
                 // uncomment the line below to help with debugging
                 // yBasePos -=20;
                 final int heartIndexMax = Math.min(10, (health - 20 * (i + 1)) / 2);
+                int textureRow = i <= 9 ? i : ((i - 4) % 7) + 4; // Loop 4-10 after row 9
+
                 for (int j = 0; j < heartIndexMax; j++) {
                     int y = 0;
                     if (j == regen) y -= 2;
                     if ((i + 1) * 20 + j * 2 + 21 >= health) {
                         // full heart texture
-                        this.drawTexturedModalRect(xBasePos + 8 * j, yBasePos + y, 18 * i, tinkerTextureY, 9, 9);
+                        this.drawTexturedModalRect(
+                                xBasePos + 8 * j,
+                                yBasePos + y,
+                                18 * textureRow,
+                                tinkerTextureY,
+                                9,
+                                9);
                     }
                 }
                 if (health % 2 == 1 && heartIndexMax < 10) {
@@ -173,7 +181,7 @@ public class HealthBarRenderer extends Gui {
                     this.drawTexturedModalRect(
                             xBasePos + 8 * heartIndexMax,
                             yBasePos + y,
-                            9 + 18 * i,
+                            9 + 18 * textureRow,
                             tinkerTextureY,
                             9,
                             9);
@@ -188,7 +196,5 @@ public class HealthBarRenderer extends Gui {
         mc.mcProfiler.endSection();
         event.setCanceled(true);
         MinecraftForge.EVENT_BUS.post(new RenderGameOverlayEvent.Post(event, HEALTH));
-
     }
-
 }
