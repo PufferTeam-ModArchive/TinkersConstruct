@@ -158,7 +158,20 @@ public class HealthBarRenderer extends Gui {
                 // uncomment the line below to help with debugging
                 // yBasePos -=20;
                 final int heartIndexMax = Math.min(10, (health - 20 * (i + 1)) / 2);
-                int textureRow = i <= 9 ? i : ((i - 4) % 7) + 4; // Loop 4-10 after row 9
+
+                // Determines the correct heart texture column from newhearts.png.
+                // After displaying up to the white hearts (index 10), it loops
+                // back through a defined range starting from loopStartPoint.
+                int loopStartPoint = 0; // 0 (Orange hearts)
+                int loopEnd = 10; // 10 (White hearts)
+                int textureColumn;
+
+                if (i <= loopEnd) {
+                    textureColumn = i;
+                } else {
+                    int span = loopEnd - loopStartPoint + 1;
+                    textureColumn = ((i - loopStartPoint) % span) + loopStartPoint;
+                }
 
                 for (int j = 0; j < heartIndexMax; j++) {
                     int y = 0;
@@ -168,7 +181,7 @@ public class HealthBarRenderer extends Gui {
                         this.drawTexturedModalRect(
                                 xBasePos + 8 * j,
                                 yBasePos + y,
-                                18 * textureRow,
+                                18 * textureColumn,
                                 tinkerTextureY,
                                 9,
                                 9);
@@ -181,7 +194,7 @@ public class HealthBarRenderer extends Gui {
                     this.drawTexturedModalRect(
                             xBasePos + 8 * heartIndexMax,
                             yBasePos + y,
-                            9 + 18 * textureRow,
+                            9 + 18 * textureColumn,
                             tinkerTextureY,
                             9,
                             9);
