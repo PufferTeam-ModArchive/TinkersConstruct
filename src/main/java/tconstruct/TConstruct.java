@@ -33,13 +33,10 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 import cpw.mods.fml.relauncher.Side;
 import mantle.pulsar.config.ForgeCFG;
 import mantle.pulsar.control.PulseManager;
-import tconstruct.achievements.AchievementEvents;
-import tconstruct.achievements.TAchievements;
 import tconstruct.api.TConstructAPI;
 import tconstruct.api.harvesting.AoeCropHarvestHandler;
 import tconstruct.api.harvesting.CropHarvestHandlers;
 import tconstruct.api.harvesting.VanillaCropsHarvestHandler;
-import tconstruct.armor.TinkerArmor;
 import tconstruct.armor.player.TPlayerHandler;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.common.TProxyCommon;
@@ -53,27 +50,14 @@ import tconstruct.library.util.AoEExclusionList;
 import tconstruct.mechworks.TinkerMechworks;
 import tconstruct.mechworks.landmine.behavior.Behavior;
 import tconstruct.mechworks.landmine.behavior.stackCombo.SpecialStackHandler;
-import tconstruct.plugins.TinkerThaumcraft;
 import tconstruct.plugins.fmp.TinkerFMP;
-import tconstruct.plugins.gears.TinkerGears;
-import tconstruct.plugins.ic2.TinkerIC2;
-import tconstruct.plugins.imc.TinkerAE2;
-import tconstruct.plugins.imc.TinkerBuildCraft;
-import tconstruct.plugins.imc.TinkerMystcraft;
-import tconstruct.plugins.imc.TinkerRfTools;
 import tconstruct.plugins.mfr.TinkerMFR;
-import tconstruct.plugins.natura.TinkerNatura;
-import tconstruct.plugins.te4.TinkerTE4;
-import tconstruct.plugins.te4.TinkersThermalFoundation;
-import tconstruct.plugins.ubc.TinkerUBC;
 import tconstruct.plugins.waila.TinkerWaila;
 import tconstruct.smeltery.TinkerSmeltery;
-import tconstruct.tools.TinkerTools;
 import tconstruct.util.IMCHandler;
 import tconstruct.util.config.DimensionBlacklist;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.util.network.PacketPipeline;
-import tconstruct.weaponry.TinkerWeaponry;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.gen.SlimeIslandGen;
 import tconstruct.world.village.ComponentSmeltery;
@@ -157,34 +141,13 @@ public class TConstruct {
         PHConstruct.initProps(event.getModConfigurationDirectory());
 
         pulsar.registerPulse(new TinkerWorld());
-        pulsar.registerPulse(new TinkerTools());
         pulsar.registerPulse(new TinkerSmeltery());
         pulsar.registerPulse(new TinkerMechworks());
-        pulsar.registerPulse(new TinkerArmor());
-        pulsar.registerPulse(new TinkerWeaponry());
-        pulsar.registerPulse(new TinkerGadgets());
-        pulsar.registerPulse(new TinkerThaumcraft());
         pulsar.registerPulse(new TinkerWaila());
-        pulsar.registerPulse(new TinkerBuildCraft());
-        pulsar.registerPulse(new TinkerAE2());
-        pulsar.registerPulse(new TinkerIC2());
-        pulsar.registerPulse(new TinkerMystcraft());
-        pulsar.registerPulse(new TinkerMFR());
-        pulsar.registerPulse(new TinkerTE4());
-        pulsar.registerPulse(new TinkersThermalFoundation());
         pulsar.registerPulse(new TinkerFMP());
-        pulsar.registerPulse(new TinkerUBC());
-        pulsar.registerPulse(new TinkerGears());
-        pulsar.registerPulse(new TinkerRfTools());
-        pulsar.registerPulse(new TinkerNatura());
 
         TConstructRegistry.materialTab = new TConstructCreativeTab("TConstructMaterials");
-        TConstructRegistry.toolTab = new TConstructCreativeTab("TConstructTools");
-        TConstructRegistry.partTab = new TConstructCreativeTab("TConstructParts");
         TConstructRegistry.blockTab = new TConstructCreativeTab("TConstructBlocks");
-        TConstructRegistry.equipableTab = new TConstructCreativeTab("TConstructEquipables");
-        TConstructRegistry.weaponryTab = new TConstructCreativeTab("TConstructWeaponry");
-        TConstructRegistry.gadgetsTab = new TConstructCreativeTab("TConstructGadgets");
 
         tableCasting = new LiquidCasting();
         basinCasting = new LiquidCasting();
@@ -202,10 +165,6 @@ public class TConstruct {
         }
 
         pulsar.preInit(event);
-
-        if (PHConstruct.achievementsEnabled) {
-            TAchievements.addDefaultAchievements();
-        }
 
         if (PHConstruct.addToVillages) {
             // adds to the villager spawner egg
@@ -246,11 +205,6 @@ public class TConstruct {
 
         proxy.initialize();
         pulsar.postInit(event);
-
-        if (PHConstruct.achievementsEnabled) {
-            TAchievements.registerAchievementPane();
-            MinecraftForge.EVENT_BUS.register(new AchievementEvents());
-        }
     }
 
     /** Called on server shutdown to prevent memory leaks */
