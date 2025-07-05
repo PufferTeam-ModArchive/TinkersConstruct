@@ -11,7 +11,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
@@ -34,7 +33,6 @@ import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import mantle.utils.RecipeRemover;
 import tconstruct.TConstruct;
-import tconstruct.armor.TinkerArmor;
 import tconstruct.blocks.SlabBase;
 import tconstruct.blocks.slime.SlimeFluid;
 import tconstruct.blocks.slime.SlimeGel;
@@ -51,16 +49,10 @@ import tconstruct.library.crafting.FluidType;
 import tconstruct.smeltery.blocks.MetalOre;
 import tconstruct.smeltery.itemblocks.MetalItemBlock;
 import tconstruct.tools.TinkerTools;
-import tconstruct.tools.blocks.MultiBrick;
-import tconstruct.tools.blocks.MultiBrickFancy;
-import tconstruct.tools.blocks.MultiBrickMetal;
 import tconstruct.tools.entity.ArrowEntity;
 import tconstruct.tools.entity.DaggerEntity;
 import tconstruct.tools.entity.FancyEntityItem;
 import tconstruct.tools.entity.LaunchedPotion;
-import tconstruct.tools.itemblocks.MultiBrickFancyItem;
-import tconstruct.tools.itemblocks.MultiBrickItem;
-import tconstruct.tools.itemblocks.MultiBrickMetalItem;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.blocks.ConveyorBase;
 import tconstruct.world.blocks.GravelOre;
@@ -69,8 +61,6 @@ import tconstruct.world.blocks.OreberryBush;
 import tconstruct.world.blocks.OreberryBushEssence;
 import tconstruct.world.blocks.SlimeExplosive;
 import tconstruct.world.blocks.SlimePad;
-import tconstruct.world.blocks.StoneLadder;
-import tconstruct.world.blocks.StoneTorch;
 import tconstruct.world.blocks.TMetalBlock;
 import tconstruct.world.blocks.WoodRail;
 import tconstruct.world.entity.BlueSlime;
@@ -118,6 +108,24 @@ public class TinkerWorld {
     public static Block barricadeSpruce;
     public static Block barricadeBirch;
     public static Block barricadeJungle;
+    public static Block barricadeAcacia;
+    public static Block barricadeDarkOak;
+    public static Block barricadeSacredOak;
+    public static Block barricadeCherry;
+    public static Block barricadeDark;
+    public static Block barricadeFir;
+    public static Block barricadeEthereal;
+    public static Block barricadeMagic;
+    public static Block barricadeMangrove;
+    public static Block barricadePalm;
+    public static Block barricadeRedwood;
+    public static Block barricadeWillow;
+    public static Block barricadePine;
+    public static Block barricadeHellbark;
+    public static Block barricadeJacaranda;
+    public static Block barricadeMahogany;
+    public static Block barricadeGreatwood;
+    public static Block barricadeSilverwood;
     public static Block slimeExplosive;
     public static Fluid blueSlimeFluid;
     // Slime
@@ -159,10 +167,62 @@ public class TinkerWorld {
         TinkerWorld.woolSlab2.setStepSound(Block.soundTypeCloth).setCreativeTab(CreativeTabs.tabDecorations);
         // Traps
         TinkerWorld.punji = new Punji().setBlockName("trap.punji");
-        TinkerWorld.barricadeOak = new BarricadeBlock(Blocks.log, 0).setBlockName("trap.barricade.oak");
-        TinkerWorld.barricadeSpruce = new BarricadeBlock(Blocks.log, 1).setBlockName("trap.barricade.spruce");
-        TinkerWorld.barricadeBirch = new BarricadeBlock(Blocks.log, 2).setBlockName("trap.barricade.birch");
-        TinkerWorld.barricadeJungle = new BarricadeBlock(Blocks.log, 3).setBlockName("trap.barricade.jungle");
+        TinkerWorld.barricadeOak = new BarricadeBlock(Blocks.planks, 0, "oak").setBlockName("oak_lumber");
+        TinkerWorld.barricadeSpruce = new BarricadeBlock(Blocks.planks, 1, "spruce").setBlockName("spruce_lumber");
+        TinkerWorld.barricadeBirch = new BarricadeBlock(Blocks.planks, 2, "birch").setBlockName("birch_lumber");
+        TinkerWorld.barricadeJungle = new BarricadeBlock(Blocks.planks, 3, "jungle").setBlockName("jungle_lumber");
+        TinkerWorld.barricadeAcacia = new BarricadeBlock(Blocks.planks, 4, "acacia").setBlockName("acacia_lumber");
+        TinkerWorld.barricadeDarkOak = new BarricadeBlock(Blocks.planks, 5, "dark_oak").setBlockName("dark_oak_lumber");
+        TinkerWorld.barricadeSacredOak = new BarricadeBlock(
+                GameRegistry.findBlock("BiomesOPlenty", "planks"),
+                0,
+                "sacredoak").setBlockName("sacredoak_lumber");
+        TinkerWorld.barricadeCherry = new BarricadeBlock(GameRegistry.findBlock("BiomesOPlenty", "planks"), 1, "cherry")
+                .setBlockName("cherry_lumber");
+        TinkerWorld.barricadeDark = new BarricadeBlock(GameRegistry.findBlock("BiomesOPlenty", "planks"), 2, "dark")
+                .setBlockName("dark_lumber");
+        TinkerWorld.barricadeFir = new BarricadeBlock(GameRegistry.findBlock("BiomesOPlenty", "planks"), 3, "fir")
+                .setBlockName("fir_lumber");
+        TinkerWorld.barricadeEthereal = new BarricadeBlock(
+                GameRegistry.findBlock("BiomesOPlenty", "planks"),
+                4,
+                "ethereal").setBlockName("ethereal_lumber");
+        TinkerWorld.barricadeMagic = new BarricadeBlock(GameRegistry.findBlock("BiomesOPlenty", "planks"), 5, "magic")
+                .setBlockName("magic_lumber");
+        TinkerWorld.barricadeMangrove = new BarricadeBlock(
+                GameRegistry.findBlock("BiomesOPlenty", "planks"),
+                6,
+                "mangrove").setBlockName("mangrove_lumber");
+        TinkerWorld.barricadePalm = new BarricadeBlock(GameRegistry.findBlock("BiomesOPlenty", "planks"), 7, "palm")
+                .setBlockName("palm_lumber");
+        TinkerWorld.barricadeRedwood = new BarricadeBlock(
+                GameRegistry.findBlock("BiomesOPlenty", "planks"),
+                8,
+                "redwood").setBlockName("redwood_lumber");
+        TinkerWorld.barricadeWillow = new BarricadeBlock(GameRegistry.findBlock("BiomesOPlenty", "planks"), 9, "willow")
+                .setBlockName("willow_lumber");
+        TinkerWorld.barricadePine = new BarricadeBlock(GameRegistry.findBlock("BiomesOPlenty", "planks"), 11, "pine")
+                .setBlockName("pine_lumber");
+        TinkerWorld.barricadeHellbark = new BarricadeBlock(
+                GameRegistry.findBlock("BiomesOPlenty", "planks"),
+                12,
+                "hellbark").setBlockName("hellbark_lumber");
+        TinkerWorld.barricadeJacaranda = new BarricadeBlock(
+                GameRegistry.findBlock("BiomesOPlenty", "planks"),
+                13,
+                "jacaranda").setBlockName("jacaranda_lumber");
+        TinkerWorld.barricadeMahogany = new BarricadeBlock(
+                GameRegistry.findBlock("BiomesOPlenty", "planks"),
+                14,
+                "mahogany").setBlockName("mahogany_lumber");
+        TinkerWorld.barricadeGreatwood = new BarricadeBlock(
+                GameRegistry.findBlock("Thaumcraft", "blockWoodenDevice"),
+                6,
+                "greatwood").setBlockName("greatwood_lumber");
+        TinkerWorld.barricadeSilverwood = new BarricadeBlock(
+                GameRegistry.findBlock("Thaumcraft", "blockWoodenDevice"),
+                7,
+                "silverwood").setBlockName("silverwood_lumber");
         TinkerWorld.slimeExplosive = new SlimeExplosive().setHardness(0.0F).setStepSound(Block.soundTypeGrass)
                 .setBlockName("explosive.slime");
 
@@ -196,18 +256,6 @@ public class TinkerWorld {
                 .setStepSound(TinkerWorld.slimeStep).setBlockName("blood.channel");
         TinkerWorld.slimePad = new SlimePad(Material.cloth).setStepSound(TinkerWorld.slimeStep).setHardness(0.3f)
                 .setBlockName("slime.pad");
-
-        // Decoration
-        TinkerWorld.stoneTorch = new StoneTorch().setBlockName("decoration.stonetorch");
-        TinkerWorld.stoneLadder = new StoneLadder().setBlockName("decoration.stoneladder");
-        TinkerTools.multiBrick = new MultiBrick().setBlockName("Decoration.Brick");
-        TinkerTools.multiBrickFancy = new MultiBrickFancy().setBlockName("Decoration.BrickFancy");
-        TinkerTools.multiBrickMetal = new MultiBrickMetal().setBlockName("Decoration.BrickMetal");
-        // Iguana Tweaks compat for obsidian
-        if (Loader.isModLoaded("IguanaTweaksTConstruct")) {
-            TinkerTools.multiBrick.setHarvestLevel("pickaxe", 5, 0);
-            TinkerTools.multiBrickFancy.setHarvestLevel("pickaxe", 5, 0);
-        }
 
         // Ores
         String[] berryOres = new String[] { "berry_iron", "berry_gold", "berry_copper", "berry_tin", "berry_iron_ripe",
@@ -254,10 +302,28 @@ public class TinkerWorld {
 
         // Traps
         GameRegistry.registerBlock(TinkerWorld.punji, "trap.punji");
-        GameRegistry.registerBlock(TinkerWorld.barricadeOak, BarricadeItem.class, "trap.barricade.oak");
-        GameRegistry.registerBlock(TinkerWorld.barricadeSpruce, BarricadeItem.class, "trap.barricade.spruce");
-        GameRegistry.registerBlock(TinkerWorld.barricadeBirch, BarricadeItem.class, "trap.barricade.birch");
-        GameRegistry.registerBlock(TinkerWorld.barricadeJungle, BarricadeItem.class, "trap.barricade.jungle");
+        GameRegistry.registerBlock(TinkerWorld.barricadeOak, BarricadeItem.class, "oak_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeSpruce, BarricadeItem.class, "spruce_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeBirch, BarricadeItem.class, "birch_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeJungle, BarricadeItem.class, "jungle_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeAcacia, BarricadeItem.class, "acacia_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeDarkOak, BarricadeItem.class, "dark_oak_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeSacredOak, BarricadeItem.class, "sacredoak_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeCherry, BarricadeItem.class, "cherry_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeDark, BarricadeItem.class, "dark_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeFir, BarricadeItem.class, "fir_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeEthereal, BarricadeItem.class, "ethereal_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeMagic, BarricadeItem.class, "magic_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeMangrove, BarricadeItem.class, "mangrove_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadePalm, BarricadeItem.class, "palm_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeRedwood, BarricadeItem.class, "redwood_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeWillow, BarricadeItem.class, "willow_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadePine, BarricadeItem.class, "pine_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeHellbark, BarricadeItem.class, "hellbark_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeJacaranda, BarricadeItem.class, "jacaranda_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeMahogany, BarricadeItem.class, "mahogany_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeGreatwood, BarricadeItem.class, "greatwood_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeSilverwood, BarricadeItem.class, "silverwood_lumber");
         GameRegistry.registerBlock(TinkerWorld.slimeExplosive, MetadataItemBlock.class, "explosive.slime");
 
         // fluids
@@ -276,15 +342,6 @@ public class TinkerWorld {
          * TConstructRegistry.drawbridgeState[TRepo.slimePad] = 1;
          * TConstructRegistry.drawbridgeState[TRepo.bloodChannel] = 1;
          */
-
-        // Decoration
-        GameRegistry.registerBlock(TinkerWorld.stoneTorch, "decoration.stonetorch");
-        GameRegistry.registerBlock(TinkerWorld.stoneLadder, "decoration.stoneladder");
-        GameRegistry.registerBlock(TinkerTools.multiBrick, MultiBrickItem.class, "decoration.multibrick");
-        GameRegistry
-                .registerBlock(TinkerTools.multiBrickFancy, MultiBrickFancyItem.class, "decoration.multibrickfancy");
-        GameRegistry
-                .registerBlock(TinkerTools.multiBrickMetal, MultiBrickMetalItem.class, "decoration.multibrickmetal");
 
         // Ores
         GameRegistry.registerBlock(TinkerWorld.oreBerry, OreberryBushItem.class, "ore.berries.one");
@@ -313,14 +370,6 @@ public class TinkerWorld {
                     .addItemStackToDirectory("oreberry" + oreberries[i], new ItemStack(TinkerWorld.oreBerries, 1, i));
         }
         TConstructRegistry.addItemStackToDirectory("blueSlimeFood", new ItemStack(TinkerWorld.strangeFood, 1, 0));
-
-        // Vanilla stack sizes
-        Items.wooden_door.setMaxStackSize(16);
-        Items.iron_door.setMaxStackSize(16);
-        Items.boat.setMaxStackSize(16);
-        Items.minecart.setMaxStackSize(3);
-        Items.cake.setMaxStackSize(16);
-        // Block.torchWood.setTickRandomly(false);
 
         TinkerWorld.metalBlock = new TMetalBlock(Material.iron, 10.0F).setBlockName("tconstruct.metalblock");
         TinkerWorld.metalBlock.stepSound = Block.soundTypeMetal;
@@ -1034,37 +1083,5 @@ public class TinkerWorld {
         }
     }
 
-    public void addLoot() {
-        // Item, min, max, weight
-        ChestGenHooks.getInfo(ChestGenHooks.DUNGEON_CHEST)
-                .addItem(new WeightedRandomChestContent(new ItemStack(TinkerArmor.heartCanister, 1, 1), 1, 1, 5));
-        ChestGenHooks.getInfo(ChestGenHooks.PYRAMID_DESERT_CHEST)
-                .addItem(new WeightedRandomChestContent(new ItemStack(TinkerArmor.heartCanister, 1, 1), 1, 1, 10));
-        ChestGenHooks.getInfo(ChestGenHooks.PYRAMID_JUNGLE_CHEST)
-                .addItem(new WeightedRandomChestContent(new ItemStack(TinkerArmor.heartCanister, 1, 1), 1, 1, 10));
-
-        TinkerWorld.tinkerHouseChest = new ChestGenHooks("TinkerHouse", new WeightedRandomChestContent[0], 3, 27);
-        TinkerWorld.tinkerHouseChest
-                .addItem(new WeightedRandomChestContent(new ItemStack(TinkerArmor.heartCanister, 1, 1), 1, 1, 1));
-        int[] validTypes = { 0, 1, 2, 3, 4, 5, 6, 8, 9, 13, 14, 17 };
-        Item[] partTypes = { TinkerTools.pickaxeHead, TinkerTools.shovelHead, TinkerTools.hatchetHead,
-                TinkerTools.binding, TinkerTools.swordBlade, TinkerTools.wideGuard, TinkerTools.handGuard,
-                TinkerTools.crossbar, TinkerTools.knifeBlade, TinkerTools.frypanHead, TinkerTools.signHead,
-                TinkerTools.chiselHead };
-
-        for (Item partType : partTypes) {
-            for (int validType : validTypes) {
-                TinkerWorld.tinkerHouseChest
-                        .addItem(new WeightedRandomChestContent(new ItemStack(partType, 1, validType), 1, 1, 15));
-            }
-        }
-
-        TinkerWorld.tinkerHousePatterns = new ChestGenHooks("TinkerPatterns", new WeightedRandomChestContent[0], 5, 30);
-        for (int i = 0; i < 13; i++) {
-            TinkerWorld.tinkerHousePatterns.addItem(
-                    new WeightedRandomChestContent(new ItemStack(TinkerTools.woodPattern, 1, i + 1), 1, 3, 20));
-        }
-        TinkerWorld.tinkerHousePatterns
-                .addItem(new WeightedRandomChestContent(new ItemStack(TinkerTools.woodPattern, 1, 22), 1, 3, 40));
-    }
+    public void addLoot() {}
 }

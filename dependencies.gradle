@@ -17,6 +17,11 @@ dependencies {
     compileOnly("com.github.GTNewHorizons:Mobs-Info:0.5.2-GTNH:dev")
     compileOnlyApi("net.industrial-craft:industrialcraft-2:2.2.828-experimental:dev")
     compileOnlyApi("com.github.GTNewHorizons:Natura:2.8.8:dev")
+    runtimeOnlyNonPublishable files('libs/Mekanism-Community-Edition-1.7.10-9.10.43-ALL.jar')
+    api files("libs/BiomesOPlenty-1.7.10-2.1.0.2308-universal.jar")
+    api files("libs/CraftTweaker-1.7.10-3.1.0-legacy-deobf.jar")
+    api "thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev"
+    api files("libs/BaublesExpanded-2.1.2-dev.jar")
 
     // For testing scythe crop harvesting
     // devOnlyNonPublishable("net.industrial-craft:industrialcraft-2:2.2.828-experimental:dev")

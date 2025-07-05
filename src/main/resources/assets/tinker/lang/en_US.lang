@@ -418,10 +418,29 @@ LavaTank.Window.name=Seared Window
 tile.landmine.name=Landmine
 
 tile.trap.punji.name=Punji Stick
-tile.trap.barricade.oak.name=Oak Barricade
-tile.trap.barricade.spruce.name=Spruce Barricade
-tile.trap.barricade.birch.name=Birch Barricade
-tile.trap.barricade.jungle.name=Jungle Barricade
+
+tile.oak_lumber.name=Oak Lumber
+tile.spruce_lumber.name=Spruce Lumber
+tile.birch_lumber.name=Birch Lumber
+tile.jungle_lumber.name=Jungle Lumber
+tile.acacia_lumber.name=Acacia Lumber
+tile.dark_oak_lumber.name=Dark Oak Lumber
+tile.sacredoak_lumber.name=Sacred Oak Lumber
+tile.cherry_lumber.name=Cherry Lumber
+tile.dark_lumber.name=Dark Lumber
+tile.fir_lumber.name=Fir Lumber
+tile.ethereal_lumber.name=Ethereal Lumber
+tile.magic_lumber.name=Magic Lumber
+tile.mangrove_lumber.name=Mangrove Lumber
+tile.palm_lumber.name=Palm Lumber
+tile.redwood_lumber.name=Redwood Lumber
+tile.willow_lumber.name=Willow Lumber
+tile.pine_lumber.name=Pine Lumber
+tile.hellbark_lumber.name=Hellbark Lumber
+tile.jacaranda_lumber.name=Jacaranda Lumber
+tile.mahogany_lumber.name=Mahogany Lumber
+tile.greatwood_lumber.name=Greatwood Lumber
+tile.silverwood_lumber.name=Silverwood Lumber
 tile.explosive.slime.name=SDX
 
 tile.tconstruct.metalblock.name=Block

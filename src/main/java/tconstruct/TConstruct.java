@@ -51,7 +51,6 @@ import tconstruct.mechworks.TinkerMechworks;
 import tconstruct.mechworks.landmine.behavior.Behavior;
 import tconstruct.mechworks.landmine.behavior.stackCombo.SpecialStackHandler;
 import tconstruct.plugins.fmp.TinkerFMP;
-import tconstruct.plugins.mfr.TinkerMFR;
 import tconstruct.plugins.waila.TinkerWaila;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.util.IMCHandler;
@@ -84,6 +83,9 @@ import tconstruct.world.village.VillageToolStationHandler;
                 + "after:armourersWorkshop@[1.7.10-0.28.0,);"
                 + "after:CoFHAPI|energy;"
                 + "after:CoFHCore;"
+                + "after:BiomesOPlenty;"
+                + "after:Thaumcraft;"
+                + "after:pfmod;"
                 + "after:battlegear2;"
                 + "after:ZeldaItemAPI;"
                 + "after:DynamicSkillsAPI;"

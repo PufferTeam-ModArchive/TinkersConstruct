@@ -23,12 +23,15 @@ public class BarricadeBlock extends MantleBlock {
 
     Block modelBlock;
     int modelMeta;
+    String modelType;
 
-    public BarricadeBlock(Block model, int meta) {
+    public BarricadeBlock(Block model, int meta, String type) {
         super(Material.wood);
         this.modelBlock = model;
         this.modelMeta = meta;
-        setHardness(4.0F);
+        this.modelType = type;
+        setHardness(2.0F);
+        setStepSound(Block.soundTypeWood);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
@@ -36,6 +39,11 @@ public class BarricadeBlock extends MantleBlock {
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
         return modelBlock.getIcon(2, modelMeta);
+    }
+
+    @Override
+    public String getItemIconName() {
+        return "tinker:" + modelType + "_lumber";
     }
 
     @Override
@@ -90,7 +98,7 @@ public class BarricadeBlock extends MantleBlock {
                         x + 0.5F,
                         y + 0.5F,
                         z + 0.5F,
-                        var9.stepSound.soundName,
+                        "dig.wood",
                         (var9.stepSound.getVolume() + 1.0F) / 2.0F,
                         var9.stepSound.getPitch() * 0.8F);
                 player.swingItem();
