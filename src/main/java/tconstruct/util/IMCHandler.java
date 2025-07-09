@@ -2,27 +2,21 @@ package tconstruct.util;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
 
 import cofh.api.energy.IEnergyContainerItem;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.FluidType;
-import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.library.tools.DynamicToolPart;
-import tconstruct.library.tools.ToolMaterial;
 import tconstruct.library.util.IPattern;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
@@ -38,116 +32,6 @@ public final class IMCHandler {
 
             // process materials added from mods
             switch (type) {
-                case "addMaterial": {
-                    if (!message.isNBTMessage()) {
-                        logInvalidMessage(message);
-                        continue;
-                    }
-
-                    NBTTagCompound tag = message.getNBTValue();
-                    int id = tag.getInteger("Id");
-                    ToolMaterial mat = scanMaterial(tag);
-                    if (mat != null) {
-                        TConstructRegistry.addtoolMaterial(id, mat);
-                        TConstructRegistry.addDefaultToolPartMaterial(id);
-                        TConstruct.logger.debug("IMC: Added material " + mat.materialName);
-
-                        // bow stats
-                        if (tag.hasKey("Bow_DrawSpeed") && tag.hasKey("Bow_ProjectileSpeed")) {
-                            int drawspeed = tag.getInteger("Bow_DrawSpeed");
-                            float flightspeed = tag.getFloat("Bow_ProjectileSpeed");
-
-                            TConstructRegistry.addBowMaterial(id, drawspeed, flightspeed);
-                            TConstruct.logger.debug("IMC: Added Bow stats for material " + mat.materialName);
-                        }
-                        // arrow stats
-                        if (tag.hasKey("Projectile_Mass") && tag.hasKey("Projectile_Fragility")) {
-                            float mass = tag.getFloat("Projectile_Mass");
-                            float breakchance = tag.getFloat("Projectile_Fragility");
-
-                            TConstructRegistry.addArrowMaterial(id, mass, breakchance);
-                            TConstruct.logger.debug("IMC: Added Projectile stats for material " + mat.materialName);
-                        }
-
-                        // add additional render mapping so resource packs or the mods themselves can have custom
-                        // textures
-                        // for the tools
-                        if (FMLCommonHandler.instance().getSide().isClient()) TConstructClientRegistry
-                                .addMaterialRenderMapping(id, "tinker", mat.name().toLowerCase(), true);
-                    }
-                    break;
-                }
-                case "addPartBuilderMaterial": {
-                    if (!message.isNBTMessage()) {
-                        logInvalidMessage(message);
-                        continue;
-                    }
-                    NBTTagCompound tag = message.getNBTValue();
-
-                    if (!checkRequiredTags("PartBuilder", tag, "MaterialId", "Item", "Value")) continue;
-
-                    int matID = tag.getInteger("MaterialId");
-                    int value = tag.getInteger("Value");
-
-                    if (TConstructRegistry.getMaterial(matID) == null) {
-                        FMLLog.bigWarning("PartBuilder IMC: Unknown Material ID " + matID);
-                        continue;
-                    }
-
-                    ItemStack item = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Item"));
-                    ItemStack shard = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Shard")); // optional
-
-                    ItemStack rod = new ItemStack(TinkerTools.toolRod, 1, matID);
-
-                    // default shard if none present. Has to exist because old code.
-                    if (shard == null) {
-                        TConstructRegistry.addDefaultShardMaterial(matID);
-                        shard = new ItemStack(TinkerTools.toolShard, 1, matID);
-                    }
-
-                    // register the material
-                    PatternBuilder.instance.registerFullMaterial(
-                            item,
-                            value,
-                            TConstructRegistry.getMaterial(matID).materialName,
-                            shard,
-                            rod,
-                            matID);
-
-                    List<Item> addItems = new LinkedList<>();
-                    List<Integer> addMetas = new LinkedList<>();
-                    List<ItemStack> addOUtputs = new LinkedList<>();
-
-                    // add mappings for everything that has stone tool mappings
-                    for (Map.Entry<List, ItemStack> mappingEntry : TConstructRegistry.patternPartMapping.entrySet()) {
-                        List mapping = mappingEntry.getKey();
-                        // only stone mappings
-                        if ((Integer) mapping.get(2) != TinkerTools.MaterialID.Stone) continue;
-
-                        // only if the output is a dynamic part
-                        if (!(mappingEntry.getValue().getItem() instanceof DynamicToolPart)) continue;
-
-                        Item woodPattern = (Item) mapping.get(0);
-                        Integer meta = (Integer) mapping.get(1);
-
-                        ItemStack output = mappingEntry.getValue().copy();
-                        output.setItemDamage(matID);
-
-                        // save data, concurrent modification exception and i'm lazy
-                        addItems.add(woodPattern);
-                        addMetas.add(meta);
-                        addOUtputs.add(output);
-                    }
-
-                    // add a part mapping for it
-                    for (int i = 0; i < addItems.size(); i++)
-                        TConstructRegistry.addPartMapping(addItems.get(i), addMetas.get(i), matID, addOUtputs.get(i));
-
-                    TConstruct.logger.debug(
-                            "PartBuilder IMC: Added Part builder mapping for "
-                                    + TConstructRegistry.getMaterial(matID).materialName);
-                    break;
-                }
                 case "addPartCastingMaterial": {
                     if (!message.isNBTMessage()) {
                         logInvalidMessage(message);
@@ -209,51 +93,6 @@ public final class IMCHandler {
 
                     TConstruct.logger
                             .debug("Casting IMC: Added fluid " + tag.getString("FluidName") + " to part casting");
-                    break;
-                }
-                case "addMaterialItem": {
-                    if (!message.isNBTMessage()) {
-                        logInvalidMessage(message);
-                        continue;
-                    }
-
-                    NBTTagCompound tag = message.getNBTValue();
-
-                    if (!checkRequiredTags("Material Item", tag, "MaterialId", "Value", "Item")) continue;
-
-                    int id = tag.getInteger("MaterialId");
-                    int value = tag.getInteger("Value");
-                    ItemStack stack = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Item"));
-
-                    if (stack == null) {
-                        FMLLog.bigWarning("Material Item IMC: Item for Material %d is null", id);
-                        continue;
-                    }
-
-                    if (TConstructRegistry.getMaterial(id) == null) {
-                        FMLLog.bigWarning("Material Item IMC: Material with ID %d does not exist", id);
-                        continue;
-                    }
-
-                    ToolMaterial mat = TConstructRegistry.getMaterial(id);
-
-                    // we already have the material registered in there
-                    if (PatternBuilder.instance.materialSets.containsKey(mat.materialName)) {
-                        PatternBuilder.instance.registerMaterial(stack, value, mat.materialName);
-                    } else {
-                        TConstructRegistry.addDefaultShardMaterial(id);
-                        ItemStack shard = new ItemStack(TinkerTools.toolShard, 1, id);
-                        ItemStack rod = new ItemStack(TinkerTools.toolRod, 1, id);
-
-                        // register the material
-                        PatternBuilder.instance.registerFullMaterial(
-                                stack,
-                                value,
-                                TConstructRegistry.getMaterial(id).materialName,
-                                shard,
-                                rod,
-                                id);
-                    }
                     break;
                 }
                 case "addSmelteryMelting": {
@@ -364,54 +203,6 @@ public final class IMCHandler {
                         message.key,
                         message.getSender(),
                         type));
-    }
-
-    private static ToolMaterial scanMaterial(NBTTagCompound tag) {
-        if (!tag.hasKey("Name")) {
-            FMLLog.bigWarning("Material IMC: Material has no name");
-            return null;
-        }
-        String name = tag.getString("Name");
-
-        if (!tag.hasKey("Id")) {
-            FMLLog.bigWarning("Material IMC: Materials need a unique id. " + name);
-            return null;
-        } else if (!tag.hasKey("Durability")) {
-            FMLLog.bigWarning("Material IMC: Materials need a durability. " + name);
-            return null;
-        } else if (!tag.hasKey("MiningSpeed")) {
-            FMLLog.bigWarning("Material IMC: Materials need a mining speed. " + name);
-            return null;
-        } else if (tag.hasKey("Stonebound") && tag.hasKey("Jagged")) {
-            FMLLog.bigWarning("Material IMC: Materials can only be Stonebound or Jagged. " + name);
-            return null;
-        }
-
-        int hlvl = tag.getInteger("HarvestLevel");
-        int durability = tag.getInteger("Durability");
-        int speed = tag.getInteger("MiningSpeed");
-        int attack = tag.getInteger("Attack");
-        float handle = tag.getFloat("HandleModifier");
-        int reinforced = tag.getInteger("Reinforced");
-        float shoddy = tag.getFloat("Stonebound");
-        String style = tag.getString("Style");
-        int color = tag.getInteger("Color");
-
-        if (tag.hasKey("Jagged")) shoddy = -tag.getFloat("Jagged");
-
-        if (tag.hasKey("localizationString")) return new ToolMaterial(
-                name,
-                tag.getString("localizationString"),
-                hlvl,
-                durability,
-                speed,
-                attack,
-                handle,
-                reinforced,
-                shoddy,
-                style,
-                color);
-        else return new ToolMaterial(name, hlvl, durability, speed, attack, handle, reinforced, shoddy, style, color);
     }
 
     // basically FMLLog.bigWarning
