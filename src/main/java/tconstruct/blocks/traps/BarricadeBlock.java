@@ -30,7 +30,7 @@ public class BarricadeBlock extends MantleBlock {
         this.modelBlock = model;
         this.modelMeta = meta;
         this.modelType = type;
-        setHardness(2.0F);
+        setHardness(0.5F);
         setStepSound(Block.soundTypeWood);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
@@ -66,12 +66,123 @@ public class BarricadeBlock extends MantleBlock {
 
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int x, int y, int z) {
-        return AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
+        int meta = par1World.getBlockMetadata(x, y, z);
+        int type = meta % 4;
+        AxisAlignedBB colbox = AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
+
+        if (meta / 4 == 0) {
+            // if (type >= 0)
+            // TODO setRenderBounds
+            colbox = AxisAlignedBB.getBoundingBox(x + 0.125F, y + 0.0F, z + 0.5F, x + 0.375F, y + 1.0F, z + 0.75F);
+
+            if (type >= 1) {
+                colbox = AxisAlignedBB.getBoundingBox(x + 0.125F, y + 0.0F, z + 0.5F, x + 0.875F, y + 1.0F, z + 0.75F);
+            }
+
+            if (type >= 2) {
+                colbox = AxisAlignedBB.getBoundingBox(x + 0.0F, y + 0.0F, z + 0.25F, x + 1.0F, y + 1.0F, z + 0.75F);
+            }
+        }
+
+        if (meta / 4 == 1) {
+            // if (type >= 0)
+            colbox = AxisAlignedBB.getBoundingBox(x + 0.25F, y + 0.0F, z + 0.125F, x + 0.5F, y + 1.0F, z + 0.375F);
+
+            if (type >= 1) {
+                colbox = AxisAlignedBB.getBoundingBox(x + 0.25F, y + 0.0F, z + 0.125F, x + 0.5F, y + 1.0F, z + 0.875F);
+            }
+
+            if (type >= 2) {
+                colbox = AxisAlignedBB.getBoundingBox(x + 0.25F, y + 0.0F, z + 0.0F, x + 0.75F, y + 1.0F, z + 1.0F);
+            }
+        }
+
+        if (meta / 4 == 2) {
+            // if (type >= 0)
+            colbox = AxisAlignedBB.getBoundingBox(x + 0.125F, y + 0.0F, z + 0.25F, x + 0.375F, y + 1.0F, z + 0.5F);
+
+            if (type >= 1) {
+                colbox = AxisAlignedBB.getBoundingBox(x + 0.125F, y + 0.0F, z + 0.25F, x + 0.875F, y + 1.0F, z + 0.5F);
+            }
+
+            if (type >= 2) {
+                colbox = AxisAlignedBB.getBoundingBox(x + 0.0F, y + 0.0F, z + 0.25F, x + 1.0F, y + 1.0F, z + 0.75F);
+            }
+        }
+
+        if (meta / 4 == 3) {
+            // if (type >= 0)
+            colbox = AxisAlignedBB.getBoundingBox(x + 0.5F, y + 0.0F, z + 0.125F, x + 0.75F, y + 1.0F, z + 0.375F);
+
+            if (type >= 1) {
+                colbox = AxisAlignedBB.getBoundingBox(x + 0.5F, y + 0.0F, z + 0.125F, x + 0.75F, y + 1.0F, z + 0.875F);
+            }
+
+            if (type >= 2) {
+                colbox = AxisAlignedBB.getBoundingBox(x + 0.25F, y + 0.0F, z + 0.0F, x + 0.75F, y + 1.0F, z + 1.0F);
+            }
+        }
+
+        return colbox;
     }
 
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int x, int y, int z) {
-        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
+        int meta = world.getBlockMetadata(x, y, z);
+        int type = meta % 4;
+
+        if (meta / 4 == 0) {
+            // if (type >= 0)
+            // TODO setRenderBounds
+            setBlockBounds(0.125F, 0.0F, 0.5F, 0.375F, 1.0F, 0.75F);
+
+            if (type >= 1) {
+                setBlockBounds(0.125F, 0.0F, 0.5F, 0.875F, 1.0F, 0.75F);
+            }
+
+            if (type >= 2) {
+                setBlockBounds(0.0F, 0.0F, 0.25F, 1.0F, 1.0F, 0.75F);
+            }
+        }
+
+        if (meta / 4 == 1) {
+            // if (type >= 0)
+            setBlockBounds(0.25F, 0.0F, 0.125F, 0.5F, 1.0F, 0.375F);
+
+            if (type >= 1) {
+                setBlockBounds(0.25F, 0.0F, 0.125F, 0.5F, 1.0F, 0.875F);
+            }
+
+            if (type >= 2) {
+                setBlockBounds(0.25F, 0.0F, 0.0F, 0.75F, 1.0F, 1.0F);
+            }
+        }
+
+        if (meta / 4 == 2) {
+            // if (type >= 0)
+            setBlockBounds(0.125F, 0.0F, 0.25F, 0.375F, 1.0F, 0.5F);
+
+            if (type >= 1) {
+                setBlockBounds(0.125F, 0.0F, 0.25F, 0.875F, 1.0F, 0.5F);
+            }
+
+            if (type >= 2) {
+                setBlockBounds(0.0F, 0.0F, 0.25F, 1.0F, 1.0F, 0.75F);
+            }
+        }
+
+        if (meta / 4 == 3) {
+            // if (type >= 0)
+            setBlockBounds(0.5F, 0.0F, 0.125F, 0.75F, 1.0F, 0.375F);
+
+            if (type >= 1) {
+                setBlockBounds(0.5F, 0.0F, 0.125F, 0.75F, 1.0F, 0.875F);
+            }
+
+            if (type >= 2) {
+                setBlockBounds(0.25F, 0.0F, 0.0F, 0.75F, 1.0F, 1.0F);
+            }
+        }
     }
 
     @Override
