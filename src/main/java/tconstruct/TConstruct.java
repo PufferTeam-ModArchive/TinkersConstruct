@@ -85,7 +85,7 @@ import tconstruct.world.village.VillageToolStationHandler;
                 + "after:CoFHCore;"
                 + "after:BiomesOPlenty;"
                 + "after:Thaumcraft;"
-                + "after:pfmod;"
+                + "after:materialis;"
                 + "after:battlegear2;"
                 + "after:ZeldaItemAPI;"
                 + "after:DynamicSkillsAPI;"
@@ -190,8 +190,7 @@ public class TConstruct {
     public void init(FMLInitializationEvent event) {
         packetPipeline.initalise();
         DimensionBlacklist.getBadBimensions();
-        GameRegistry.registerWorldGenerator(new SlimeIslandGen(TinkerWorld.slimePool, 2), 2);
-
+        
         pulsar.init(event);
         if (PHConstruct.scytheAoeHarvest) {
             CropHarvestHandlers.registerCropHarvestHandler(new VanillaCropsHarvestHandler());

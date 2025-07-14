@@ -41,19 +41,19 @@ public class PHConstruct {
 
         keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
-        beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
+        beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", false).getBoolean(false);
         deathPenality = config.get("Difficulty Changes", "Tools lose 10% durability on death", true).getBoolean(true);
         balancedFluxModifier = config.get("Difficulty Changes", "Balanced Flux Modifier", true).getBoolean(true);
 
-        enableTWood = config.get("Difficulty Changes", "Enable mod wooden tools", true).getBoolean(true);
-        enableTStone = config.get("Difficulty Changes", "Enable mod stone tools", true).getBoolean(true);
-        enableTCactus = config.get("Difficulty Changes", "Enable mod cactus tools", true).getBoolean(true);
-        enableTBone = config.get("Difficulty Changes", "Enable mod bone tools", true).getBoolean(true);
-        enableTFlint = config.get("Difficulty Changes", "Enable mod flint tools", true).getBoolean(true);
-        enableTNetherrack = config.get("Difficulty Changes", "Enable mod netherrack tools", true).getBoolean(true);
-        enableTSlime = config.get("Difficulty Changes", "Enable mod slime tools", true).getBoolean(true);
-        enableTPaper = config.get("Difficulty Changes", "Enable mod paper tools", true).getBoolean(true);
-        enableTBlueSlime = config.get("Difficulty Changes", "Enable mod blue slime tools", true).getBoolean(true);
+        enableTWood = config.get("Difficulty Changes", "Enable mod wooden tools", false).getBoolean(false);
+        enableTStone = config.get("Difficulty Changes", "Enable mod stone tools", false).getBoolean(false);
+        enableTCactus = config.get("Difficulty Changes", "Enable mod cactus tools", false).getBoolean(false);
+        enableTBone = config.get("Difficulty Changes", "Enable mod bone tools", false).getBoolean(false);
+        enableTFlint = config.get("Difficulty Changes", "Enable mod flint tools", false).getBoolean(false);
+        enableTNetherrack = config.get("Difficulty Changes", "Enable mod netherrack tools", false).getBoolean(false);
+        enableTSlime = config.get("Difficulty Changes", "Enable mod slime tools", false).getBoolean(false);
+        enableTPaper = config.get("Difficulty Changes", "Enable mod paper tools", false).getBoolean(false);
+        enableTBlueSlime = config.get("Difficulty Changes", "Enable mod blue slime tools", false).getBoolean(false);
 
         craftMetalTools = config.get("Difficulty Changes", "Craft metals with Wood Patterns", false).getBoolean(false);
         vanillaMetalBlocks = config.get("Difficulty Changes", "Craft vanilla metal blocks", true).getBoolean(true);
@@ -121,7 +121,7 @@ public class PHConstruct {
 
         capesEnabled = config.get("Superfun", "Enable-TCon-Capes", true).getBoolean(true);
 
-        achievementsEnabled = config.get("Achievements", "Enable Achievements", true).getBoolean(true);
+        achievementsEnabled = config.get("Achievements", "Enable Achievements", false).getBoolean(true);
 
         boolean ic2 = true;
         boolean xycraft = true;
@@ -135,34 +135,35 @@ public class PHConstruct {
             xycraft = false;
         } catch (Exception ignored) {}
 
-        generateCopper = config.get("Worldgen Disabler", "Generate Copper", ic2).getBoolean(ic2);
-        generateTin = config.get("Worldgen Disabler", "Generate Tin", ic2).getBoolean(ic2);
-        generateAluminum = config.get("Worldgen Disabler", "Generate Aluminum", xycraft).getBoolean(xycraft);
+        generateCopper = config.get("Worldgen Disabler", "Generate Copper", false).getBoolean(false);
+        generateTin = config.get("Worldgen Disabler", "Generate Tin", false).getBoolean(false);
+        generateAluminum = config.get("Worldgen Disabler", "Generate Aluminum", false).getBoolean(false);
         if (config.hasKey("worldgen disabler", "Generate Cobalt and Ardite")) {
-            generateNetherOres = config.get("Worldgen Disabler", "Generate Cobalt and Ardite", true).getBoolean(true);
+            generateNetherOres = config.get("Worldgen Disabler", "Generate Cobalt and Ardite", false).getBoolean(false);
             generateCobalt = generateArdite = generateNetherOres;
             ConfigCategory cat = config.getCategory("worldgen disabler");
             cat.remove("Generate Cobalt and Ardite");
         } else {
-            generateCobalt = config.get("Worldgen Disabler", "Generate Cobalt", true).getBoolean(true);
-            generateArdite = config.get("Worldgen Disabler", "Generate Ardite", true).getBoolean(true);
+            generateCobalt = config.get("Worldgen Disabler", "Generate Cobalt", false).getBoolean(false);
+            generateArdite = config.get("Worldgen Disabler", "Generate Ardite", false).getBoolean(false);
         }
 
-        generateIronSurface = config.get("Worldgen Disabler", "Generate Surface Iron", true).getBoolean(true);
-        generateGoldSurface = config.get("Worldgen Disabler", "Generate Surface Gold", true).getBoolean(true);
-        generateCopperSurface = config.get("Worldgen Disabler", "Generate Surface Copper", true).getBoolean(true);
-        generateTinSurface = config.get("Worldgen Disabler", "Generate Surface Tin", true).getBoolean(true);
-        generateAluminumSurface = config.get("Worldgen Disabler", "Generate Surface Aluminum", true).getBoolean(true);
+        generateIronSurface = config.get("Worldgen Disabler", "Generate Surface Iron", false).getBoolean(false);
+        generateGoldSurface = config.get("Worldgen Disabler", "Generate Surface Gold", false).getBoolean(false);
+        generateCopperSurface = config.get("Worldgen Disabler", "Generate Surface Copper", false).getBoolean(false);
+        generateTinSurface = config.get("Worldgen Disabler", "Generate Surface Tin", false).getBoolean(false);
+        generateAluminumSurface = config.get("Worldgen Disabler", "Generate Surface Aluminum", false).getBoolean(false);
 
-        generateIronBush = config.get("Worldgen Disabler", "Generate Iron Bushes", true).getBoolean(true);
-        generateGoldBush = config.get("Worldgen Disabler", "Generate Gold Bushes", true).getBoolean(true);
-        generateCopperBush = config.get("Worldgen Disabler", "Generate Copper Bushes", true).getBoolean(true);
-        generateTinBush = config.get("Worldgen Disabler", "Generate Tin Bushes", true).getBoolean(true);
-        generateAluminumBush = config.get("Worldgen Disabler", "Generate Aluminum Bushes", true).getBoolean(true);
-        generateEssenceBush = config.get("Worldgen Disabler", "Generate Essence Bushes", true).getBoolean(true);
-        addToVillages = config.get("Worldgen Disabler", "Add Village Generation", true).getBoolean(true);
+        generateIronBush = config.get("Worldgen Disabler", "Generate Iron Bushes", false).getBoolean(false);
+        generateGoldBush = config.get("Worldgen Disabler", "Generate Gold Bushes", false).getBoolean(false);
+        generateCopperBush = config.get("Worldgen Disabler", "Generate Copper Bushes", false).getBoolean(false);
+        generateTinBush = config.get("Worldgen Disabler", "Generate Tin Bushes", false).getBoolean(false);
+        generateAluminumBush = config.get("Worldgen Disabler", "Generate Aluminum Bushes", false).getBoolean(false);
+        generateEssenceBush = config.get("Worldgen Disabler", "Generate Essence Bushes", false).getBoolean(false);
+        addToVillages = config.get("Worldgen Disabler", "Add Village Generation", false).getBoolean(false);
         allowVillagerTrading = config
-                .get("Worldgen Disabler", "Enable the Tinkers Villager to trade for oreberries", true).getBoolean(true);
+                .get("Worldgen Disabler", "Enable the Tinkers Villager to trade for oreberries", false)
+                .getBoolean(false);
 
         copperuDensity = config.get("Worldgen", "Copper Underground Density", 2, "Density: Chances per chunk")
                 .getInt(2);
@@ -229,7 +230,7 @@ public class PHConstruct {
         disableAllRecipes = config.get(
                 "general",
                 "Disable All Recipes",
-                false,
+                true,
                 "Disable all TiC recipes (smeltery, drying rack, crafting, etc)").getBoolean();
 
         enableHealthRegen = config.get("Ultra Hardcore Changes", "Passive Health Regen", true).getBoolean(true);
@@ -284,8 +285,8 @@ public class PHConstruct {
         slimeIslGenDim0 = config.get(
                 "DimBlackList",
                 "slimeIslGenDim0",
-                true,
-                "True: slime islands generate in overworld; False they do not generate").getBoolean(true);
+                false,
+                "True: slime islands generate in overworld; False they do not generate").getBoolean(false);
         genIslandsFlat = config.get("DimBlacklist", "genIslandsFlat", false, "Generate slime islands in flat worlds")
                 .getBoolean(false);
         genOresFlat = config.get("DimBlacklist", "genOresFlat", false, "Generate ores in flat worlds")

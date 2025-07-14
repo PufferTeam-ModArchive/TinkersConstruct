@@ -30,7 +30,7 @@ public class FluidType {
 
     public static void registerFluidType(String name, Block block, int meta, int baseTemperature, Fluid fluid,
             boolean isToolpart) {
-        FluidType type = new FluidType(block, meta, baseTemperature, fluid, isToolpart);
+        FluidType type = new FluidType(block, meta, baseTemperature, fluid, false);
         registerFluidType(name, type);
     }
 

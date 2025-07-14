@@ -43,11 +43,9 @@ import tconstruct.blocks.slime.SlimeTallGrass;
 import tconstruct.blocks.traps.BarricadeBlock;
 import tconstruct.blocks.traps.Punji;
 import tconstruct.client.StepSoundSlime;
-import tconstruct.common.itemblocks.MetadataItemBlock;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.FluidType;
 import tconstruct.smeltery.blocks.MetalOre;
-import tconstruct.smeltery.itemblocks.MetalItemBlock;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.entity.ArrowEntity;
 import tconstruct.tools.entity.DaggerEntity;
@@ -69,9 +67,7 @@ import tconstruct.world.entity.KingBlueSlime;
 import tconstruct.world.gen.TBaseWorldGenerator;
 import tconstruct.world.gen.TerrainGenEventHandler;
 import tconstruct.world.itemblocks.BarricadeItem;
-import tconstruct.world.itemblocks.GravelOreItem;
 import tconstruct.world.itemblocks.HamboneItemBlock;
-import tconstruct.world.itemblocks.MetalOreItemBlock;
 import tconstruct.world.itemblocks.OreberryBushItem;
 import tconstruct.world.itemblocks.OreberryBushSecondItem;
 import tconstruct.world.itemblocks.SlimeGelItemBlock;
@@ -160,7 +156,6 @@ public class TinkerWorld {
         MinecraftForge.EVENT_BUS.register(new TinkerWorldEvents());
 
         // Blocks
-        TinkerWorld.meatBlock = new MeatBlock().setBlockName("tconstruct.meatblock");
         TinkerWorld.woolSlab1 = new SlabBase(Material.cloth, Blocks.wool, 0, 8).setBlockName("cloth");
         TinkerWorld.woolSlab1.setStepSound(Block.soundTypeCloth).setCreativeTab(CreativeTabs.tabDecorations);
         TinkerWorld.woolSlab2 = new SlabBase(Material.cloth, Blocks.wool, 8, 8).setBlockName("cloth");
@@ -223,8 +218,6 @@ public class TinkerWorld {
                 GameRegistry.findBlock("Thaumcraft", "blockWoodenDevice"),
                 7,
                 "silverwood").setBlockName("silverwood_lumber");
-        TinkerWorld.slimeExplosive = new SlimeExplosive().setHardness(0.0F).setStepSound(Block.soundTypeGrass)
-                .setBlockName("explosive.slime");
 
         // Slime
         TinkerWorld.slimeStep = new StepSoundSlime("mob.slime", 1.0f, 1.0f);
@@ -273,30 +266,12 @@ public class TinkerWorld {
                 2,
                 new String[] { "oreAluminum", "oreSilver" }).setBlockName("ore.berries.two");
 
-        String[] oreTypes = new String[] { "nether_slag", "nether_cobalt", "nether_ardite", "ore_copper", "ore_tin",
-                "ore_aluminum", "ore_slag" };
-        TinkerWorld.oreSlag = new MetalOre(Material.rock, 10.0F, oreTypes).setBlockName("tconstruct.stoneore");
-        TinkerWorld.oreSlag.setHarvestLevel("pickaxe", 4, 1);
-        TinkerWorld.oreSlag.setHarvestLevel("pickaxe", 4, 2);
-        TinkerWorld.oreSlag.setHarvestLevel("pickaxe", 1, 3);
-        TinkerWorld.oreSlag.setHarvestLevel("pickaxe", 1, 4);
-        TinkerWorld.oreSlag.setHarvestLevel("pickaxe", 1, 5);
-
-        TinkerWorld.oreGravel = new GravelOre().setBlockName("GravelOre").setBlockName("tconstruct.gravelore");
-        TinkerWorld.oreGravel.setHarvestLevel("shovel", 1, 0);
-        TinkerWorld.oreGravel.setHarvestLevel("shovel", 2, 1);
-        TinkerWorld.oreGravel.setHarvestLevel("shovel", 1, 2);
-        TinkerWorld.oreGravel.setHarvestLevel("shovel", 1, 3);
-        TinkerWorld.oreGravel.setHarvestLevel("shovel", 1, 4);
-        TinkerWorld.oreGravel.setHarvestLevel("shovel", 4, 5);
         // Rail
         if (!Loader.isModLoaded("dreamcraft")) {
             TinkerWorld.woodenRail = new WoodRail().setStepSound(Block.soundTypeWood)
                     .setCreativeTab(TConstructRegistry.blockTab).setBlockName("rail.wood");
         }
 
-        GameRegistry.registerBlock(TinkerWorld.meatBlock, HamboneItemBlock.class, "MeatBlock");
-        OreDictionary.registerOre("hambone", new ItemStack(TinkerWorld.meatBlock));
         GameRegistry.registerBlock(TinkerWorld.woolSlab1, WoolSlab1Item.class, "WoolSlab1");
         GameRegistry.registerBlock(TinkerWorld.woolSlab2, WoolSlab2Item.class, "WoolSlab2");
 
@@ -324,7 +299,6 @@ public class TinkerWorld {
         GameRegistry.registerBlock(TinkerWorld.barricadeMahogany, BarricadeItem.class, "mahogany_lumber");
         GameRegistry.registerBlock(TinkerWorld.barricadeGreatwood, BarricadeItem.class, "greatwood_lumber");
         GameRegistry.registerBlock(TinkerWorld.barricadeSilverwood, BarricadeItem.class, "silverwood_lumber");
-        GameRegistry.registerBlock(TinkerWorld.slimeExplosive, MetadataItemBlock.class, "explosive.slime");
 
         // fluids
 
@@ -346,18 +320,11 @@ public class TinkerWorld {
         // Ores
         GameRegistry.registerBlock(TinkerWorld.oreBerry, OreberryBushItem.class, "ore.berries.one");
         GameRegistry.registerBlock(TinkerWorld.oreBerrySecond, OreberryBushSecondItem.class, "ore.berries.two");
-        GameRegistry.registerBlock(TinkerWorld.oreSlag, MetalOreItemBlock.class, "SearedBrick");
-        GameRegistry.registerBlock(TinkerWorld.oreGravel, GravelOreItem.class, "GravelOre");
 
         // Rail
         if (TinkerWorld.woodenRail != null) {
             GameRegistry.registerBlock(TinkerWorld.woodenRail, "rail.wood");
         }
-
-        // Items
-        goldHead = new GoldenHead(4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F)
-                .setUnlocalizedName("goldenhead");
-        GameRegistry.registerItem(goldHead, "goldHead");
 
         TinkerWorld.strangeFood = new StrangeFood().setUnlocalizedName("tconstruct.strangefood");
         TinkerWorld.oreBerries = new OreBerries().setUnlocalizedName("oreberry");
@@ -371,9 +338,6 @@ public class TinkerWorld {
         }
         TConstructRegistry.addItemStackToDirectory("blueSlimeFood", new ItemStack(TinkerWorld.strangeFood, 1, 0));
 
-        TinkerWorld.metalBlock = new TMetalBlock(Material.iron, 10.0F).setBlockName("tconstruct.metalblock");
-        TinkerWorld.metalBlock.stepSound = Block.soundTypeMetal;
-        GameRegistry.registerBlock(TinkerWorld.metalBlock, MetalItemBlock.class, "MetalBlock");
         FluidType.registerFluidType("Slime", TinkerWorld.slimeGel, 0, 250, TinkerWorld.blueSlimeFluid, false);
 
         oreRegistry();
@@ -465,234 +429,6 @@ public class TinkerWorld {
         String[] patBlock = { "###", "###", "###" };
         String[] patSurround = { "###", "#m#", "###" };
 
-        // Metal conversion Recipes
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerWorld.metalBlock, 1, 3),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 9)); // Copper
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerWorld.metalBlock, 1, 5),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 10)); // Tin
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerWorld.metalBlock, 1, 6),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 11)); // Aluminum
-        // GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 6),
-        // patBlock, '#', new ItemStack(TRepo.materials, 1, 12)); // Aluminum
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerWorld.metalBlock, 1, 4),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 13)); // Bronze
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerWorld.metalBlock, 1, 7),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 14)); // AluBrass
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerWorld.metalBlock, 1, 0),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 3)); // Cobalt
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerWorld.metalBlock, 1, 1),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 4)); // Ardite
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerWorld.metalBlock, 1, 2),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 5)); // Manyullyn
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerWorld.metalBlock, 1, 8),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 15)); // Alumite
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerWorld.metalBlock, 1, 9),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 16)); // Steel
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 1, 11),
-                "#",
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 12)); // Aluminum raw ->
-        // ingot
-
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 9),
-                "m",
-                'm',
-                new ItemStack(TinkerWorld.metalBlock, 1, 3)); // Copper
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 10),
-                "m",
-                'm',
-                new ItemStack(TinkerWorld.metalBlock, 1, 5)); // Tin
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 11),
-                "m",
-                'm',
-                new ItemStack(TinkerWorld.metalBlock, 1, 6)); // Aluminum
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 13),
-                "m",
-                'm',
-                new ItemStack(TinkerWorld.metalBlock, 1, 4)); // Bronze
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 14),
-                "m",
-                'm',
-                new ItemStack(TinkerWorld.metalBlock, 1, 7)); // AluBrass
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 3),
-                "m",
-                'm',
-                new ItemStack(TinkerWorld.metalBlock, 1, 0)); // Cobalt
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 4),
-                "m",
-                'm',
-                new ItemStack(TinkerWorld.metalBlock, 1, 1)); // Ardite
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 5),
-                "m",
-                'm',
-                new ItemStack(TinkerWorld.metalBlock, 1, 2)); // Manyullyn
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 15),
-                "m",
-                'm',
-                new ItemStack(TinkerWorld.metalBlock, 1, 8)); // Alumite
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 16),
-                "m",
-                'm',
-                new ItemStack(TinkerWorld.metalBlock, 1, 9)); // Steel
-
-        GameRegistry
-                .addRecipe(new ItemStack(Items.iron_ingot), patBlock, '#', new ItemStack(TinkerTools.materials, 1, 19)); // Iron
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 1, 9),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 20)); // Copper
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 1, 10),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 21)); // Tin
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 1, 11),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 22)); // Aluminum
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 1, 14),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 24)); // Aluminum Brass
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 1, 18),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 27)); // Obsidian
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 1, 3),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 28)); // Cobalt
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 1, 4),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 29)); // Ardite
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 1, 5),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 30)); // Manyullyn
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 1, 13),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 31)); // Bronze
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 1, 15),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 32)); // Alumite
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 1, 16),
-                patBlock,
-                '#',
-                new ItemStack(TinkerTools.materials, 1, 33)); // Steel
-
-        GameRegistry.addRecipe(new ItemStack(TinkerTools.materials, 9, 19), "m", 'm', new ItemStack(Items.iron_ingot)); // Iron
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 20),
-                "m",
-                'm',
-                new ItemStack(TinkerTools.materials, 1, 9)); // Copper
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 21),
-                "m",
-                'm',
-                new ItemStack(TinkerTools.materials, 1, 10)); // Tin
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 22),
-                "m",
-                'm',
-                new ItemStack(TinkerTools.materials, 1, 11)); // Aluminum
-        // GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 22), "m",
-        // 'm', new ItemStack(TRepo.materials, 1, 12)); //Aluminum
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 24),
-                "m",
-                'm',
-                new ItemStack(TinkerTools.materials, 1, 14)); // Aluminum Brass
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 27),
-                "m",
-                'm',
-                new ItemStack(TinkerTools.materials, 1, 18)); // Obsidian
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 28),
-                "m",
-                'm',
-                new ItemStack(TinkerTools.materials, 1, 3)); // Cobalt
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 29),
-                "m",
-                'm',
-                new ItemStack(TinkerTools.materials, 1, 4)); // Ardite
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 30),
-                "m",
-                'm',
-                new ItemStack(TinkerTools.materials, 1, 5)); // Manyullyn
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 31),
-                "m",
-                'm',
-                new ItemStack(TinkerTools.materials, 1, 13)); // Bronze
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 32),
-                "m",
-                'm',
-                new ItemStack(TinkerTools.materials, 1, 15)); // Alumite
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerTools.materials, 9, 33),
-                "m",
-                'm',
-                new ItemStack(TinkerTools.materials, 1, 16)); // Steel
-
         String[] dyeTypes = { "dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan",
                 "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange",
                 "dyeWhite" };
@@ -708,26 +444,6 @@ public class TinkerWorld {
                             '#',
                             new ItemStack(Blocks.wool, 1, Short.MAX_VALUE)));
         }
-
-        // Jack o'Latern Recipe - Stone Torch
-        GameRegistry.addRecipe(
-                new ItemStack(Blocks.lit_pumpkin, 1, 0),
-                "p",
-                "s",
-                'p',
-                new ItemStack(Blocks.pumpkin),
-                's',
-                new ItemStack(TinkerWorld.stoneTorch));
-        // Stone Torch Recipe
-        GameRegistry.addRecipe(
-                new ShapedOreRecipe(
-                        new ItemStack(TinkerWorld.stoneTorch, 4),
-                        "p",
-                        "w",
-                        'p',
-                        new ItemStack(Items.coal, 1, Short.MAX_VALUE),
-                        'w',
-                        "rodStone"));
         // Stone Ladder Recipe
         GameRegistry.addRecipe(
                 new ShapedOreRecipe(new ItemStack(TinkerWorld.stoneLadder, 3), "w w", "www", "w w", 'w', "rodStone"));
@@ -798,34 +514,6 @@ public class TinkerWorld {
                     new ItemStack(TinkerWorld.woolSlab2, 1, sc));
         }
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.wool, 1, 0), "slabCloth", "slabCloth"));
-        // Trap Recipes
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerWorld.punji, 5, 0),
-                "b b",
-                " b ",
-                "b b",
-                'b',
-                new ItemStack(Items.reeds));
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerWorld.barricadeSpruce, 1, 0),
-                "b",
-                "b",
-                'b',
-                new ItemStack(Blocks.log, 1, 1));
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerWorld.barricadeBirch, 1, 0),
-                "b",
-                "b",
-                'b',
-                new ItemStack(Blocks.log, 1, 2));
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerWorld.barricadeJungle, 1, 0),
-                "b",
-                "b",
-                'b',
-                new ItemStack(Blocks.log, 1, 3));
-        GameRegistry.addRecipe(
-                new ShapedOreRecipe(new ItemStack(TinkerWorld.barricadeOak, 1, 0), "b", "b", 'b', "logWood"));
 
         // Slime Recipes
         GameRegistry.addRecipe(new ItemStack(TinkerWorld.slimeGel, 1, 0), "##", "##", '#', TinkerWorld.strangeFood);
@@ -872,16 +560,6 @@ public class TinkerWorld {
                         new ItemStack(TinkerWorld.slimePad, 1, 0),
                         TinkerWorld.slimeChannel,
                         "slimeball"));
-
-        GameRegistry.addRecipe(
-                new ItemStack(TinkerWorld.meatBlock),
-                "mmm",
-                "mbm",
-                "mmm",
-                'b',
-                new ItemStack(Items.bone),
-                'm',
-                new ItemStack(Items.porkchop));
     }
 
     private void addRecipesForFurnace() {
@@ -913,109 +591,12 @@ public class TinkerWorld {
         // 1, new ItemStack(TRepo.materials, 1, 3), 3f);
         // FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreSlag,
         // 2, new ItemStack(TRepo.materials, 1, 4), 3f);
-        FurnaceRecipes.smelting().func_151394_a(
-                new ItemStack(TinkerWorld.oreSlag, 1, 3),
-                new ItemStack(TinkerTools.materials, 1, 9),
-                0.5f);
-        FurnaceRecipes.smelting().func_151394_a(
-                new ItemStack(TinkerWorld.oreSlag, 1, 4),
-                new ItemStack(TinkerTools.materials, 1, 10),
-                0.5f);
-        FurnaceRecipes.smelting().func_151394_a(
-                new ItemStack(TinkerWorld.oreSlag, 1, 5),
-                new ItemStack(TinkerTools.materials, 1, 11),
-                0.5f);
-
-        FurnaceRecipes.smelting().func_151394_a(
-                new ItemStack(TinkerWorld.oreBerries, 1, 0),
-                new ItemStack(TinkerTools.materials, 1, 19),
-                0.2f);
-        FurnaceRecipes.smelting()
-                .func_151394_a(new ItemStack(TinkerWorld.oreBerries, 1, 1), new ItemStack(Items.gold_nugget), 0.2f);
-        FurnaceRecipes.smelting().func_151394_a(
-                new ItemStack(TinkerWorld.oreBerries, 1, 2),
-                new ItemStack(TinkerTools.materials, 1, 20),
-                0.2f);
-        FurnaceRecipes.smelting().func_151394_a(
-                new ItemStack(TinkerWorld.oreBerries, 1, 3),
-                new ItemStack(TinkerTools.materials, 1, 21),
-                0.2f);
-        FurnaceRecipes.smelting().func_151394_a(
-                new ItemStack(TinkerWorld.oreBerries, 1, 4),
-                new ItemStack(TinkerTools.materials, 1, 22),
-                0.2f);
         // FurnaceRecipes.smelting().func_151394_a(new
         // ItemStack(TRepo.oreBerries, 5, new ItemStack(TRepo.materials, 1, 23),
         // 0.2f);
-
-        FurnaceRecipes.smelting()
-                .func_151394_a(new ItemStack(TinkerWorld.oreGravel, 1, 0), new ItemStack(Items.iron_ingot), 0.2f);
-        FurnaceRecipes.smelting()
-                .func_151394_a(new ItemStack(TinkerWorld.oreGravel, 1, 1), new ItemStack(Items.gold_ingot), 0.2f);
-        FurnaceRecipes.smelting().func_151394_a(
-                new ItemStack(TinkerWorld.oreGravel, 1, 2),
-                new ItemStack(TinkerTools.materials, 1, 9),
-                0.2f);
-        FurnaceRecipes.smelting().func_151394_a(
-                new ItemStack(TinkerWorld.oreGravel, 1, 3),
-                new ItemStack(TinkerTools.materials, 1, 10),
-                0.2f);
-        FurnaceRecipes.smelting().func_151394_a(
-                new ItemStack(TinkerWorld.oreGravel, 1, 4),
-                new ItemStack(TinkerTools.materials, 1, 11),
-                0.2f);
-
-        FurnaceRecipes.smelting().func_151394_a(
-                new ItemStack(TinkerTools.materials, 1, 38),
-                new ItemStack(TinkerTools.materials, 1, 4),
-                0.2f);
-        FurnaceRecipes.smelting().func_151394_a(
-                new ItemStack(TinkerTools.materials, 1, 39),
-                new ItemStack(TinkerTools.materials, 1, 3),
-                0.2f);
-        FurnaceRecipes.smelting().func_151394_a(
-                new ItemStack(TinkerTools.materials, 1, 40),
-                new ItemStack(TinkerTools.materials, 1, 11),
-                0.2f);
-        FurnaceRecipes.smelting().func_151394_a(
-                new ItemStack(TinkerTools.materials, 1, 41),
-                new ItemStack(TinkerTools.materials, 1, 5),
-                0.2f);
-        FurnaceRecipes.smelting().func_151394_a(
-                new ItemStack(TinkerTools.materials, 1, 42),
-                new ItemStack(TinkerTools.materials, 1, 14),
-                0.2f);
     }
 
     public void oreRegistry() {
-        OreDictionary.registerOre("oreCobalt", new ItemStack(TinkerWorld.oreSlag, 1, 1));
-        OreDictionary.registerOre("oreArdite", new ItemStack(TinkerWorld.oreSlag, 1, 2));
-        OreDictionary.registerOre("oreCopper", new ItemStack(TinkerWorld.oreSlag, 1, 3));
-        OreDictionary.registerOre("oreTin", new ItemStack(TinkerWorld.oreSlag, 1, 4));
-        OreDictionary.registerOre("oreAluminum", new ItemStack(TinkerWorld.oreSlag, 1, 5));
-        OreDictionary.registerOre("oreAluminium", new ItemStack(TinkerWorld.oreSlag, 1, 5));
-
-        OreDictionary.registerOre("oreIron", new ItemStack(TinkerWorld.oreGravel, 1, 0));
-        OreDictionary.registerOre("oreGold", new ItemStack(TinkerWorld.oreGravel, 1, 1));
-        OreDictionary.registerOre("oreCobalt", new ItemStack(TinkerWorld.oreGravel, 1, 5));
-        OreDictionary.registerOre("oreCopper", new ItemStack(TinkerWorld.oreGravel, 1, 2));
-        OreDictionary.registerOre("oreTin", new ItemStack(TinkerWorld.oreGravel, 1, 3));
-        OreDictionary.registerOre("oreAluminum", new ItemStack(TinkerWorld.oreGravel, 1, 4));
-        OreDictionary.registerOre("oreAluminium", new ItemStack(TinkerWorld.oreGravel, 1, 4));
-
-        OreDictionary.registerOre("blockCobalt", new ItemStack(TinkerWorld.metalBlock, 1, 0));
-        OreDictionary.registerOre("blockArdite", new ItemStack(TinkerWorld.metalBlock, 1, 1));
-        OreDictionary.registerOre("blockManyullyn", new ItemStack(TinkerWorld.metalBlock, 1, 2));
-        OreDictionary.registerOre("blockCopper", new ItemStack(TinkerWorld.metalBlock, 1, 3));
-        OreDictionary.registerOre("blockBronze", new ItemStack(TinkerWorld.metalBlock, 1, 4));
-        OreDictionary.registerOre("blockTin", new ItemStack(TinkerWorld.metalBlock, 1, 5));
-        OreDictionary.registerOre("blockAluminum", new ItemStack(TinkerWorld.metalBlock, 1, 6));
-        OreDictionary.registerOre("blockAluminium", new ItemStack(TinkerWorld.metalBlock, 1, 6));
-        OreDictionary.registerOre("blockAluminumBrass", new ItemStack(TinkerWorld.metalBlock, 1, 7));
-        OreDictionary.registerOre("blockAluminiumBrass", new ItemStack(TinkerWorld.metalBlock, 1, 7));
-        OreDictionary.registerOre("blockAlumite", new ItemStack(TinkerWorld.metalBlock, 1, 8));
-        OreDictionary.registerOre("blockSteel", new ItemStack(TinkerWorld.metalBlock, 1, 9));
-        OreDictionary.registerOre("blockEnder", new ItemStack(TinkerWorld.metalBlock, 1, 10));
 
         OreDictionary.registerOre("nuggetIron", new ItemStack(TinkerWorld.oreBerries, 1, 0));
         OreDictionary.registerOre("nuggetCopper", new ItemStack(TinkerWorld.oreBerries, 1, 2));
@@ -1050,8 +631,6 @@ public class TinkerWorld {
 
         OreDictionary.registerOre("crafterWood", new ItemStack(Blocks.crafting_table, 1));
         OreDictionary.registerOre("craftingTableWood", new ItemStack(Blocks.crafting_table, 1));
-
-        OreDictionary.registerOre("torchStone", new ItemStack(TinkerWorld.stoneTorch));
 
         // Vanilla stuff
         OreDictionary.registerOre("slimeball", new ItemStack(Items.slime_ball));
