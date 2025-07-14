@@ -28,7 +28,6 @@ import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkCheckHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 import cpw.mods.fml.relauncher.Side;
 import mantle.pulsar.config.ForgeCFG;
@@ -58,7 +57,6 @@ import tconstruct.util.config.DimensionBlacklist;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.util.network.PacketPipeline;
 import tconstruct.world.TinkerWorld;
-import tconstruct.world.gen.SlimeIslandGen;
 import tconstruct.world.village.ComponentSmeltery;
 import tconstruct.world.village.ComponentToolWorkshop;
 import tconstruct.world.village.TVillageTrades;
@@ -190,7 +188,7 @@ public class TConstruct {
     public void init(FMLInitializationEvent event) {
         packetPipeline.initalise();
         DimensionBlacklist.getBadBimensions();
-        
+
         pulsar.init(event);
         if (PHConstruct.scytheAoeHarvest) {
             CropHarvestHandlers.registerCropHarvestHandler(new VanillaCropsHarvestHandler());

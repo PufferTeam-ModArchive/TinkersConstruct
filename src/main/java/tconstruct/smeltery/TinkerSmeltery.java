@@ -459,7 +459,7 @@ public class TinkerSmeltery {
                             new ItemStack(Items.bucket)));
 
         TinkerSmeltery.fluids = new Fluid[] { TinkerSmeltery.moltenIronFluid, TinkerSmeltery.moltenGoldFluid,
-                TinkerSmeltery.moltenCopperFluid, TinkerSmeltery.moltenTinFluid, TinkerSmeltery.moltenAluminumFluid, 
+                TinkerSmeltery.moltenCopperFluid, TinkerSmeltery.moltenTinFluid, TinkerSmeltery.moltenAluminumFluid,
                 TinkerSmeltery.moltenCobaltFluid, TinkerSmeltery.moltenArditeFluid, TinkerSmeltery.moltenBronzeFluid,
                 TinkerSmeltery.moltenAlubrassFluid, TinkerSmeltery.moltenManyullynFluid,
                 TinkerSmeltery.moltenAlumiteFluid, TinkerSmeltery.moltenObsidianFluid, TinkerSmeltery.moltenSteelFluid,
@@ -467,7 +467,9 @@ public class TinkerSmeltery {
                 TinkerSmeltery.bloodFluid, TinkerSmeltery.moltenNickelFluid, TinkerSmeltery.moltenLeadFluid,
                 TinkerSmeltery.moltenSilverFluid, TinkerSmeltery.moltenShinyFluid, TinkerSmeltery.moltenInvarFluid,
                 TinkerSmeltery.moltenElectrumFluid, TinkerSmeltery.moltenEnderFluid, TinkerWorld.blueSlimeFluid,
-                TinkerSmeltery.glueFluid, TinkerSmeltery.pigIronFluid, TinkerSmeltery.moltenQuartzFluid, TinkerSmeltery.moltenManasteelFluid, TinkerSmeltery.moltenTerrasteelFluid, TinkerSmeltery.moltenElementiumFluid, TinkerSmeltery.moltenThaumiumFluid, };
+                TinkerSmeltery.glueFluid, TinkerSmeltery.pigIronFluid, TinkerSmeltery.moltenQuartzFluid,
+                TinkerSmeltery.moltenManasteelFluid, TinkerSmeltery.moltenTerrasteelFluid,
+                TinkerSmeltery.moltenElementiumFluid, TinkerSmeltery.moltenThaumiumFluid, };
         TinkerSmeltery.fluidBlocks = new Block[] { TinkerSmeltery.moltenIron, TinkerSmeltery.moltenGold,
                 TinkerSmeltery.moltenCopper, TinkerSmeltery.moltenTin, TinkerSmeltery.moltenAluminum,
                 TinkerSmeltery.moltenCobalt, TinkerSmeltery.moltenArdite, TinkerSmeltery.moltenBronze,
@@ -478,7 +480,9 @@ public class TinkerSmeltery {
                 TinkerSmeltery.moltenShiny, TinkerSmeltery.moltenInvar, TinkerSmeltery.moltenElectrum,
                 TinkerSmeltery.moltenEnder, TinkerWorld.slimePool, TinkerSmeltery.glueFluidBlock,
                 TinkerSmeltery.pigIronFluidBlock, TinkerSmeltery.moltenLumium, TinkerSmeltery.moltenSignalum,
-                TinkerSmeltery.moltenMithril, TinkerSmeltery.moltenEnderium, TinkerSmeltery.moltenQuartz, TinkerSmeltery.moltenManasteel, TinkerSmeltery.moltenTerrasteel, TinkerSmeltery.moltenElementium, TinkerSmeltery.moltenThaumium, };
+                TinkerSmeltery.moltenMithril, TinkerSmeltery.moltenEnderium, TinkerSmeltery.moltenQuartz,
+                TinkerSmeltery.moltenManasteel, TinkerSmeltery.moltenTerrasteel, TinkerSmeltery.moltenElementium,
+                TinkerSmeltery.moltenThaumium, };
 
         FluidType.registerFluidType("Water", Blocks.snow, 0, 20, FluidRegistry.getFluid("water"), false);
         FluidType.registerFluidType("Iron", Blocks.iron_block, 0, 600, TinkerSmeltery.moltenIronFluid, true);
@@ -526,10 +530,34 @@ public class TinkerSmeltery {
         FluidType.registerFluidType("Quartz", Blocks.quartz_block, 0, 575, TinkerSmeltery.moltenQuartzFluid, false);
         FluidType.registerFluidType("PigIron", TinkerWorld.meatBlock, 0, 610, TinkerSmeltery.pigIronFluid, true);
         FluidType.registerFluidType("Glue", TinkerSmeltery.glueBlock, 0, 125, TinkerSmeltery.glueFluid, false);
-        FluidType.registerFluidType("Manasteel", TinkerWorld.metalBlock, 0, 600, TinkerSmeltery.moltenManasteelFluid, false);
-        FluidType.registerFluidType("Terrasteel", TinkerWorld.metalBlock, 0, 600, TinkerSmeltery.moltenTerrasteelFluid, false);
-        FluidType.registerFluidType("Elementium", TinkerWorld.metalBlock, 0, 600, TinkerSmeltery.moltenElementiumFluid, false);
-        FluidType.registerFluidType("Thaumium", TinkerWorld.metalBlock, 0, 600, TinkerSmeltery.moltenThaumiumFluid, false);
+        FluidType.registerFluidType(
+                "Manasteel",
+                TinkerWorld.metalBlock,
+                0,
+                600,
+                TinkerSmeltery.moltenManasteelFluid,
+                false);
+        FluidType.registerFluidType(
+                "Terrasteel",
+                TinkerWorld.metalBlock,
+                0,
+                600,
+                TinkerSmeltery.moltenTerrasteelFluid,
+                false);
+        FluidType.registerFluidType(
+                "Elementium",
+                TinkerWorld.metalBlock,
+                0,
+                600,
+                TinkerSmeltery.moltenElementiumFluid,
+                false);
+        FluidType.registerFluidType(
+                "Thaumium",
+                TinkerWorld.metalBlock,
+                0,
+                600,
+                TinkerSmeltery.moltenThaumiumFluid,
+                false);
 
         TinkerSmeltery.speedBlock = new SpeedBlock().setBlockName("SpeedBlock");
 
