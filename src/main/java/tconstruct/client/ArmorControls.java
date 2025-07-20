@@ -5,10 +5,12 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
+import net.minecraftforge.common.MinecraftForge;
 
 import org.lwjgl.input.Keyboard;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -55,6 +57,9 @@ public class ArmorControls {
     public ArmorControls() {
         getVanillaKeyBindings();
         keys = new KeyBinding[] { armorKey, toggleGoggles, beltSwap, zoomKey, null, null };
+        EventHandler handler = new EventHandler();
+        FMLCommonHandler.instance().bus().register(handler);
+        MinecraftForge.EVENT_BUS.register(handler);
     }
 
     public void registerKeys() {
@@ -77,21 +82,6 @@ public class ArmorControls {
         mc = Minecraft.getMinecraft();
         jumpKey = mc.gameSettings.keyBindJump;
         invKey = mc.gameSettings.keyBindInventory;
-    }
-
-    @SubscribeEvent
-    public void keyEvent(KeyInputEvent event) {
-        if (!isNotEnoughKeysLoaded) {
-            checkAndPerformKeyActions(null, false);
-        }
-    }
-
-    @Optional.Method(modid = "notenoughkeys")
-    @SubscribeEvent
-    public void keyEventSpecial(KeyBindingPressedEvent event) {
-        if (event.keyBinding != null && event.isKeyBindingPressed) {
-            checkAndPerformKeyActions(event.keyBinding, true);
-        }
     }
 
     private void checkAndPerformKeyActions(KeyBinding keyBinding, boolean inputFromNotEnoughKeys) {
@@ -207,5 +197,23 @@ public class ArmorControls {
 
     static void updateServer(AbstractPacket abstractPacket) {
         TConstruct.packetPipeline.sendToServer(abstractPacket);
+    }
+
+    public class EventHandler {
+
+        @SubscribeEvent
+        public void keyEvent(KeyInputEvent event) {
+            if (!isNotEnoughKeysLoaded) {
+                checkAndPerformKeyActions(null, false);
+            }
+        }
+
+        @Optional.Method(modid = "notenoughkeys")
+        @SubscribeEvent
+        public void keyEventSpecial(KeyBindingPressedEvent event) {
+            if (event.keyBinding != null && event.isKeyBindingPressed) {
+                checkAndPerformKeyActions(event.keyBinding, true);
+            }
+        }
     }
 }

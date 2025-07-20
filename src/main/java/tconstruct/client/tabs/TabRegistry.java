@@ -7,7 +7,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.network.play.client.C0DPacketCloseWindow;
 import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.common.MinecraftForge;
 
+import codechicken.nei.NEIClientConfig;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -15,6 +17,10 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class TabRegistry {
+
+    public void registerEvent() {
+        MinecraftForge.EVENT_BUS.register(new EventHandler());
+    }
 
     private static final ArrayList<AbstractTab> tabList = new ArrayList<>();
 
@@ -24,21 +30,6 @@ public class TabRegistry {
 
     public static ArrayList<AbstractTab> getTabList() {
         return tabList;
-    }
-
-    @SideOnly(Side.CLIENT)
-    @SubscribeEvent
-    public void guiPostInit(GuiScreenEvent.InitGuiEvent.Post event) {
-        if ((event.gui instanceof GuiInventory)) {
-            int xSize = 176;
-            int ySize = 166;
-            int guiLeft = (event.gui.width - xSize) / 2;
-            int guiTop = (event.gui.height - ySize) / 2;
-            guiLeft += getPotionOffset();
-
-            updateTabValues(guiLeft, guiTop, InventoryTabVanilla.class);
-            addTabsToList(event.gui.buttonList);
-        }
     }
 
     private static final Minecraft mc = FMLClientHandler.instance().getClient();
@@ -75,15 +66,9 @@ public class TabRegistry {
         if (!mc.thePlayer.getActivePotionEffects().isEmpty()) {
             if (Loader.isModLoaded("NotEnoughItems")) {
                 try {
-                    // Check whether NEI is hidden and enabled
-                    Class<?> c = Class.forName("codechicken.nei.NEIClientConfig");
-                    Object hidden = c.getMethod("isHidden").invoke(null);
-                    Object enabled = c.getMethod("isEnabled").invoke(null);
-                    if (hidden instanceof Boolean && enabled instanceof Boolean) {
-                        if ((Boolean) hidden || !((Boolean) enabled)) {
-                            // If NEI is disabled or hidden, offset the tabs by 60
-                            return 60;
-                        }
+                    if (NEIClientConfig.isHidden() || !NEIClientConfig.isEnabled()) {
+                        // If NEI is disabled or hidden, offset the tabs by 60
+                        return 60;
                     }
                 } catch (Exception ignored) {}
             } else {
@@ -91,8 +76,30 @@ public class TabRegistry {
                 return 60;
             }
         }
-
         // No potions, no offset needed
         return 0;
+    }
+
+    // Client method
+    public void guiPostInit(GuiScreenEvent.InitGuiEvent.Post event) {
+        if ((event.gui instanceof GuiInventory)) {
+            int xSize = 176;
+            int ySize = 166;
+            int guiLeft = (event.gui.width - xSize) / 2;
+            int guiTop = (event.gui.height - ySize) / 2;
+            guiLeft += getPotionOffset();
+
+            updateTabValues(guiLeft, guiTop, InventoryTabVanilla.class);
+            addTabsToList(event.gui.buttonList);
+        }
+    }
+
+    public class EventHandler {
+
+        @SideOnly(Side.CLIENT)
+        @SubscribeEvent
+        public void guiPostInitWrapper(GuiScreenEvent.InitGuiEvent.Post event) {
+            TabRegistry.this.guiPostInit(event);
+        }
     }
 }
