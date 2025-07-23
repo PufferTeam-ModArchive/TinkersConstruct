@@ -301,6 +301,9 @@ public class TinkerWorld {
         GameRegistry.registerBlock(TinkerWorld.barricadeMahogany, BarricadeItem.class, "mahogany_lumber");
         GameRegistry.registerBlock(TinkerWorld.barricadeGreatwood, BarricadeItem.class, "greatwood_lumber");
         GameRegistry.registerBlock(TinkerWorld.barricadeSilverwood, BarricadeItem.class, "silverwood_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeRowan, BarricadeItem.class, "rowan_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeAlder, BarricadeItem.class, "alder_lumber");
+        GameRegistry.registerBlock(TinkerWorld.barricadeHawthorn, BarricadeItem.class, "hawthorn_lumber");
 
         // fluids
 
