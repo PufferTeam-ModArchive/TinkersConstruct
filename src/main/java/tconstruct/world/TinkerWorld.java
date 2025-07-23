@@ -148,7 +148,7 @@ public class TinkerWorld {
 
     @Handler
     public void preInit(FMLPreInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register(new TinkerWorldEvents.EventHandler());
+        new TinkerWorldEvents().registerEvents();
 
         // Blocks
         TinkerWorld.woolSlab1 = new SlabBase(Material.cloth, Blocks.wool, 0, 8).setBlockName("cloth");
