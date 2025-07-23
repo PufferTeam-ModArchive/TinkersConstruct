@@ -114,6 +114,9 @@ public class TinkerWorld {
     public static Block barricadeMahogany;
     public static Block barricadeGreatwood;
     public static Block barricadeSilverwood;
+    public static Block barricadeRowan;
+    public static Block barricadeAlder;
+    public static Block barricadeHawthorn;
     public static Block slimeExplosive;
     public static Fluid blueSlimeFluid;
     // Slime
@@ -210,7 +213,14 @@ public class TinkerWorld {
                 GameRegistry.findBlock("Thaumcraft", "blockWoodenDevice"),
                 7,
                 "silverwood").setBlockName("silverwood_lumber");
-
+        TinkerWorld.barricadeRowan = new BarricadeBlock(GameRegistry.findBlock("witchery", "witchwood"), 0, "rowan")
+                .setBlockName("rowan_lumber");
+        TinkerWorld.barricadeAlder = new BarricadeBlock(GameRegistry.findBlock("witchery", "witchwood"), 1, "alder")
+                .setBlockName("alder_lumber");
+        TinkerWorld.barricadeHawthorn = new BarricadeBlock(
+                GameRegistry.findBlock("witchery", "witchwood"),
+                2,
+                "hawthorn").setBlockName("hawthorn_lumber");
         // Slime
         TinkerWorld.slimeStep = new StepSoundSlime("mob.slime", 1.0f, 1.0f);
 

@@ -144,6 +144,7 @@ public class TinkerSmeltery {
     public static Fluid moltenSilverFluid;
     public static Fluid moltenShinyFluid;
     public static Fluid moltenInvarFluid;
+    public static Fluid moltenConstantanFluid;
     public static Fluid moltenElectrumFluid;
     public static Fluid moltenLumiumFluid;
     public static Fluid moltenSignalumFluid;
@@ -176,6 +177,7 @@ public class TinkerSmeltery {
     public static Block moltenSilver;
     public static Block moltenShiny;
     public static Block moltenInvar;
+    public static Block moltenConstantan;
     public static Block moltenElectrum;
     public static Block moltenLumium;
     public static Block moltenSignalum;
@@ -338,6 +340,9 @@ public class TinkerSmeltery {
         TinkerSmeltery.moltenInvarFluid = registerFluid("invar");
         TinkerSmeltery.moltenInvar = TinkerSmeltery.moltenInvarFluid.getBlock();
 
+        TinkerSmeltery.moltenConstantanFluid = registerFluid("constantan");
+        TinkerSmeltery.moltenConstantan = TinkerSmeltery.moltenConstantanFluid.getBlock();
+
         TinkerSmeltery.moltenElectrumFluid = registerFluid("electrum");
         TinkerSmeltery.moltenElectrum = TinkerSmeltery.moltenElectrumFluid.getBlock();
 
@@ -466,10 +471,11 @@ public class TinkerSmeltery {
                 TinkerSmeltery.moltenGlassFluid, TinkerSmeltery.moltenStoneFluid, TinkerSmeltery.moltenEmeraldFluid,
                 TinkerSmeltery.bloodFluid, TinkerSmeltery.moltenNickelFluid, TinkerSmeltery.moltenLeadFluid,
                 TinkerSmeltery.moltenSilverFluid, TinkerSmeltery.moltenShinyFluid, TinkerSmeltery.moltenInvarFluid,
-                TinkerSmeltery.moltenElectrumFluid, TinkerSmeltery.moltenEnderFluid, TinkerWorld.blueSlimeFluid,
-                TinkerSmeltery.glueFluid, TinkerSmeltery.pigIronFluid, TinkerSmeltery.moltenQuartzFluid,
-                TinkerSmeltery.moltenManasteelFluid, TinkerSmeltery.moltenTerrasteelFluid,
-                TinkerSmeltery.moltenElementiumFluid, TinkerSmeltery.moltenThaumiumFluid, };
+                TinkerSmeltery.moltenConstantanFluid, TinkerSmeltery.moltenElectrumFluid,
+                TinkerSmeltery.moltenEnderFluid, TinkerWorld.blueSlimeFluid, TinkerSmeltery.glueFluid,
+                TinkerSmeltery.pigIronFluid, TinkerSmeltery.moltenQuartzFluid, TinkerSmeltery.moltenManasteelFluid,
+                TinkerSmeltery.moltenTerrasteelFluid, TinkerSmeltery.moltenElementiumFluid,
+                TinkerSmeltery.moltenThaumiumFluid, };
         TinkerSmeltery.fluidBlocks = new Block[] { TinkerSmeltery.moltenIron, TinkerSmeltery.moltenGold,
                 TinkerSmeltery.moltenCopper, TinkerSmeltery.moltenTin, TinkerSmeltery.moltenAluminum,
                 TinkerSmeltery.moltenCobalt, TinkerSmeltery.moltenArdite, TinkerSmeltery.moltenBronze,
@@ -477,12 +483,12 @@ public class TinkerSmeltery {
                 TinkerSmeltery.moltenObsidian, TinkerSmeltery.moltenSteel, TinkerSmeltery.moltenGlass,
                 TinkerSmeltery.moltenStone, TinkerSmeltery.moltenEmerald, TinkerSmeltery.blood,
                 TinkerSmeltery.moltenNickel, TinkerSmeltery.moltenLead, TinkerSmeltery.moltenSilver,
-                TinkerSmeltery.moltenShiny, TinkerSmeltery.moltenInvar, TinkerSmeltery.moltenElectrum,
-                TinkerSmeltery.moltenEnder, TinkerWorld.slimePool, TinkerSmeltery.glueFluidBlock,
-                TinkerSmeltery.pigIronFluidBlock, TinkerSmeltery.moltenLumium, TinkerSmeltery.moltenSignalum,
-                TinkerSmeltery.moltenMithril, TinkerSmeltery.moltenEnderium, TinkerSmeltery.moltenQuartz,
-                TinkerSmeltery.moltenManasteel, TinkerSmeltery.moltenTerrasteel, TinkerSmeltery.moltenElementium,
-                TinkerSmeltery.moltenThaumium, };
+                TinkerSmeltery.moltenShiny, TinkerSmeltery.moltenInvar, TinkerSmeltery.moltenConstantan,
+                TinkerSmeltery.moltenElectrum, TinkerSmeltery.moltenEnder, TinkerWorld.slimePool,
+                TinkerSmeltery.glueFluidBlock, TinkerSmeltery.pigIronFluidBlock, TinkerSmeltery.moltenLumium,
+                TinkerSmeltery.moltenSignalum, TinkerSmeltery.moltenMithril, TinkerSmeltery.moltenEnderium,
+                TinkerSmeltery.moltenQuartz, TinkerSmeltery.moltenManasteel, TinkerSmeltery.moltenTerrasteel,
+                TinkerSmeltery.moltenElementium, TinkerSmeltery.moltenThaumium, };
 
         FluidType.registerFluidType("Water", Blocks.snow, 0, 20, FluidRegistry.getFluid("water"), false);
         FluidType.registerFluidType("Iron", Blocks.iron_block, 0, 600, TinkerSmeltery.moltenIronFluid, true);

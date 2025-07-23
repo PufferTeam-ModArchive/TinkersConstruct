@@ -82,6 +82,7 @@ import tconstruct.world.village.VillageToolStationHandler;
                 + "after:CoFHCore;"
                 + "after:BiomesOPlenty;"
                 + "after:Thaumcraft;"
+                + "after:witchery;"
                 + "after:materialis;"
                 + "after:battlegear2;"
                 + "after:ZeldaItemAPI;"
